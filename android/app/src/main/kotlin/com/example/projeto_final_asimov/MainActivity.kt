@@ -1,4 +1,4 @@
-package com.example.projeto_final_asimov
+package br.com.final.projeto
 
 import io.flutter.embedding.android.FlutterActivity
 
