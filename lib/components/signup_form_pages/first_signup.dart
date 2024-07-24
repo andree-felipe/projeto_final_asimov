@@ -22,9 +22,19 @@ class FirstSignup extends StatefulWidget {
 class _FirstSignupState extends State<FirstSignup> {
   bool _isChecked = false;
   bool _isChecked2 = false;
+  String returnValue = '';
 
-  bool _exclusiveCodeVerification(String? codeToVerificate) {
-    // Implementar função de verificação
+  // Método para verificar se algum usuário criado já usa o código informado no cadastro
+  bool _exclusiveCodeVerification(String codeToVerificate) {
+    // final queryResult = await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .where('exclusiveCode', isEqualTo: codeToVerificate)
+    //     .get();
+        
+    // if(queryResult.size > 0) {
+    //   return 'true';
+    // }
+
     return false;
   }
 
@@ -147,12 +157,14 @@ class _FirstSignupState extends State<FirstSignup> {
             child: TextFormField(
               key: ValueKey('exclusiveCode'),
               initialValue: widget.signupFormData.exclusiveCode,
-              onChanged: (exclusiveCode) => widget.signupFormData.exclusiveCode = exclusiveCode,
-              validator: (_exclusiveCode) {
+              onChanged: (exclusiveCode) {
+                widget.signupFormData.exclusiveCode = exclusiveCode;
+                // setState(() {
+                //   returnValue = _exclusiveCodeVerification(exclusiveCode);
+                // });
+              },
+              validator: (returnValue) {
                 // Verificar se já existe código cadastrado
-                if (_exclusiveCodeVerification(_exclusiveCode)) {
-                  return 'O código inserido já está em uso';
-                }
                 return null;
               },
               decoration: InputDecoration(
@@ -212,8 +224,7 @@ class _FirstSignupState extends State<FirstSignup> {
                       borderWidth: 1.5,
                       borderColor: const Color.fromRGBO(142, 30, 3, 1),
                       checkedIcon: Icons.check,
-                      checkedIconColor:
-                          const Color.fromRGBO(142, 30, 3, 1),
+                      checkedIconColor: const Color.fromRGBO(142, 30, 3, 1),
                       checkedFillColor: Colors.white,
                     ),
                     Text(
@@ -243,8 +254,7 @@ class _FirstSignupState extends State<FirstSignup> {
                       borderWidth: 1.5,
                       borderColor: const Color.fromRGBO(142, 30, 3, 1),
                       checkedIcon: Icons.check,
-                      checkedIconColor:
-                          const Color.fromRGBO(142, 30, 3, 1),
+                      checkedIconColor: const Color.fromRGBO(142, 30, 3, 1),
                       checkedFillColor: Colors.white,
                     ),
                     Text(
