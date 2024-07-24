@@ -57,7 +57,7 @@ class AuthFirebaseService implements AuthService {
       await login(email, password);
 
       // Salvar usuário no banco de dados
-      _currentUser = _toAppUser(credential.user!, exclusiveCode, permissionType, name);
+      _currentUser = _toAppUser(credential.user!, name, exclusiveCode, permissionType);
       await _saveAppUser(_currentUser!);
     }
 
@@ -98,7 +98,7 @@ class AuthFirebaseService implements AuthService {
     return await imageRef.getDownloadURL();
   }
 
-  static AppUser _toAppUser(User user, [String? name, String? imageURL, String? exclusiveCode, String? permissionType]) {
+  static AppUser _toAppUser(User user, [String? name, String? exclusiveCode, String? permissionType, String? imageURL]) {
     return AppUser(
       id: user.uid,
       name: name ?? user.displayName ?? user.email!.split('@')[0],

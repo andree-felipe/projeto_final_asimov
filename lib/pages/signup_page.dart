@@ -20,9 +20,10 @@ class _SignupPageState extends State<SignupPage> {
   Future<void> _handleSubmit(SignupFormData signupFormData) async {
     try {
       if(!mounted) return;
-      setState(() => _isLoading = false);
+      setState(() => _isLoading = true);
 
       await AuthService().signup(signupFormData.name, signupFormData.email, signupFormData.password, signupFormData.exclusiveCode, signupFormData.permissionType);
+
     } catch (error) {
       // Tratar erro
     } finally {
