@@ -36,6 +36,13 @@ class _SignupFormState extends State<SignupForm> {
     // print(_signupFormData);
   }
 
+  void _submitToSecondForm() {
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) return;
+
+    _signupFormData.toggleSignupFormMode();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -55,7 +62,7 @@ class _SignupFormState extends State<SignupForm> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      _signupFormData.isFirst ? _signupFormData.toggleSignupFormMode() : _submit();
+                      _signupFormData.isFirst ? _submitToSecondForm() : _submit();
                     });
                   },
                   style: ButtonStyle(

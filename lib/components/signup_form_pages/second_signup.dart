@@ -37,11 +37,11 @@ class _SecondSignupState extends State<SecondSignup> {
         // Input da senha
         Container(
           width: 300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-                color: const Color.fromRGBO(142, 30, 3, 1), width: 1.5),
-          ),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(15),
+          //   border: Border.all(
+          //       color: const Color.fromRGBO(142, 30, 3, 1), width: 1.5),
+          // ),
           child: TextFormField(
             key: ValueKey('senha'),
             initialValue: widget.signupFormData.password,
@@ -55,12 +55,26 @@ class _SecondSignupState extends State<SecondSignup> {
               return null;
             },
             decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent)),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent)),
               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent)),
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(142, 30, 3, 1), width: 1.7),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(142, 30, 3, 1), width: 1.7),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(142, 30, 3, 1), width: 1.7),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(142, 30, 3, 1), width: 1.7),
+              ),
               hintText: 'Senha',
             ),
           ),
@@ -77,11 +91,11 @@ class _SecondSignupState extends State<SecondSignup> {
         // Input da confirmação da senha
         Container(
           width: 300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-                color: const Color.fromRGBO(142, 30, 3, 1), width: 1.5),
-          ),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(15),
+          //   border: Border.all(
+          //       color: const Color.fromRGBO(142, 30, 3, 1), width: 1.5),
+          // ),
           child: TextFormField(
             key: ValueKey('confirmedPssword'),
             initialValue: _confirmedPassword,
@@ -95,12 +109,26 @@ class _SecondSignupState extends State<SecondSignup> {
               return null;
             },
             decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent)),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent)),
               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent)),
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(142, 30, 3, 1), width: 1.7),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(142, 30, 3, 1), width: 1.7),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(142, 30, 3, 1), width: 1.7),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(142, 30, 3, 1), width: 1.7),
+              ),
               hintText: 'Confirmar senha',
             ),
           ),

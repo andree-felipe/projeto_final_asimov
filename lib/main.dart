@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/pages/signup_page.dart';
 import 'firebase_options.dart';
 import 'pages/app_or_auth_page.dart';
+import 'pages/home_page.dart';
 import 'pages/login_or_signup_page.dart';
 
 Future<void> main() async {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SignupPage(),
+      home: const HomePage(),
       debugShowCheckedModeBanner: false,
       title: 'ConstrueStock',
       theme: ThemeData(
