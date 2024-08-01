@@ -4,9 +4,16 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/pages/home_options/profile_page.dart';
+import 'package:projeto_final_asimov/pages/products/reader_products.dart';
+import 'package:projeto_final_asimov/pages/products/stockist_products.dart';
+
+import '../core/models/app_user.dart';
+import '../core/services/auth/auth_service.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  static final AppUser? _currentUser = AuthService().currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +75,19 @@ class HomePage extends StatelessWidget {
               width: 300,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  print(_currentUser);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) {
+                      if(_currentUser?.permissionType == 'leitor') {
+                        return ReaderProducts();
+                      }
+                      else {
+                        return StockistProducts();
+                      }
+                    }),
+                  );
+                },
                 style: ButtonStyle(
                   elevation: WidgetStatePropertyAll<double>(8),
                   backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
