@@ -4,7 +4,7 @@ import 'package:projeto_final_asimov/components/signup_form_pages/first_signup.d
 import 'package:projeto_final_asimov/components/signup_form_pages/second_signup.dart';
 
 import '../core/models/signup_form_data.dart';
-import '../pages/home_page.dart';
+// import '../pages/home_page.dart';
 
 class SignupForm extends StatefulWidget {
   // const SignupForm({super.key});
@@ -28,11 +28,11 @@ class _SignupFormState extends State<SignupForm> {
     if (!isValid) return;
 
     widget.onSubmit(_signupFormData);
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (ctx) {
-        return HomePage();
-      }),
-    );
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(builder: (ctx) {
+    //     return HomePage();
+    //   }),
+    // );
     // print(_signupFormData);
   }
 

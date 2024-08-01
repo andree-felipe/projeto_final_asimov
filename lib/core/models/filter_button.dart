@@ -27,7 +27,7 @@ class FilterButton extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          fontWeight: FontWeight.normal,
+          fontWeight: FontWeight.w500,
           fontSize: 20,
         ),
       ),

@@ -23,14 +23,14 @@ class _LoginOrSignupPageState extends State<LoginOrSignupPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 270),
+              margin: EdgeInsets.only(top: 100),
               height: 220,
               child: SvgPicture.asset(
                 'assets/images/logo_auth_page.svg',
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(height: 200),
+            SizedBox(height: 250),
             Container(
               height: 50,
               width: 300,

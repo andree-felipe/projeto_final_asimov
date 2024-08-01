@@ -82,8 +82,8 @@ class AuthFirebaseService implements AuthService {
     return docRef.set({
       'name': user.name,
       'email': user.email,
-      'code': user.exclusiveCode,
-      'userType': user.permissionType,
+      'identificationCode': user.exclusiveCode,
+      'role': user.permissionType,
       'imageURL': user.imageURL,
     });
   }

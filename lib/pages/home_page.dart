@@ -3,6 +3,7 @@
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_final_asimov/pages/home_options/profile_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,7 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(142, 30, 3, 1),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           children: [
@@ -19,7 +20,7 @@ class HomePage extends StatelessWidget {
               height: 110,
               width: 110,
               child: SvgPicture.asset(
-                'assets/images/white_main_logo.svg',
+                'assets/images/main_logo.svg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -28,10 +29,16 @@ class HomePage extends StatelessWidget {
               width: 300,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) {
+                      return ProfilePage();
+                    })
+                  );
+                },
                 style: ButtonStyle(
                   elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(255, 144, 0, 1)),
+                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
                   alignment: Alignment.center
                 ),
                 child: Padding(
@@ -64,7 +71,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () {},
                 style: ButtonStyle(
                   elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(255, 144, 0, 1)),
+                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
                   alignment: Alignment.center
                 ),
                 child: Padding(
@@ -97,7 +104,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () {},
                 style: ButtonStyle(
                   elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(255, 144, 0, 1)),
+                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
                   alignment: Alignment.center
                 ),
                 child: Padding(
@@ -130,7 +137,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () {},
                 style: ButtonStyle(
                   elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(255, 144, 0, 1)),
+                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
                   alignment: Alignment.center
                 ),
                 child: Padding(

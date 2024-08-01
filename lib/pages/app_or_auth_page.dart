@@ -7,7 +7,7 @@ import '../core/services/auth/auth_service.dart';
 import '../core/models/app_user.dart';
 import 'loading_page.dart';
 import 'home_page.dart';
-import 'login_or_signup_page.dart';
+import 'auth/login_or_signup_page.dart';
 
 class AppOrAuthPage extends StatelessWidget {
   const AppOrAuthPage({super.key});
