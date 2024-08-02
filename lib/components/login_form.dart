@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, no_leading_underscores_for_local_identifiers, sized_box_for_whitespace
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../core/models/login_form_data.dart';
-import '../pages/home_page.dart';
 import '../pages/auth/signup_page.dart';
 
 class LoginForm extends StatefulWidget {
@@ -28,17 +28,22 @@ class _LoginFormState extends State<LoginForm> {
     if (!isValid) return;
 
     widget.onSubmit(_loginFormData);
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (ctx) {
-        return HomePage();
-      }),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Container(
+          margin: EdgeInsets.only(top: 110),
+          height: 110,
+          width: 110,
+          child: SvgPicture.asset(
+            'assets/images/main_logo.svg',
+            fit: BoxFit.cover,
+          ),
+        ),
+        SizedBox(height: 40),
         Center(
           child: Form(
             key: _formKey,
