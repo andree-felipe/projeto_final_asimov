@@ -4,9 +4,15 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/pages/home_options/profile_page.dart';
+import 'package:projeto_final_asimov/pages/products/reader_products.dart';
+import 'package:projeto_final_asimov/pages/products/stockist_products.dart';
+
+import '../core/services/auth/auth_service.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final _currentUser = AuthService().currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +74,18 @@ class HomePage extends StatelessWidget {
               width: 300,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) {
+                      if(_currentUser?.permissionType == 'estoquista') {
+                        return StockistProducts();
+                      }
+                      else {
+                        return ReaderProducts();
+                      }
+                    }),
+                  );
+                },
                 style: ButtonStyle(
                   elevation: WidgetStatePropertyAll<double>(8),
                   backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
@@ -151,6 +168,37 @@ class HomePage extends StatelessWidget {
                       SizedBox(width: 8),
                       Text(
                         'Registros',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              width: 300,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  AuthService().logout();
+                },
+                style: ButtonStyle(
+                  elevation: WidgetStatePropertyAll<double>(8),
+                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
+                  alignment: Alignment.center
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 65),
+                  child: Row(
+                    children: [
+                      SizedBox(width: 8),
+                      Text(
+                        'Logout',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,

@@ -9,6 +9,7 @@ import 'firebase_options.dart';
 import 'pages/app_or_auth_page.dart';
 import 'pages/home_page.dart';
 import 'pages/auth/login_or_signup_page.dart';
+import 'pages/products/stockist_products.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const ReaderProducts(),
+      home: const AppOrAuthPage(),
       debugShowCheckedModeBanner: false,
       title: 'ConstrueStock',
       theme: ThemeData(
