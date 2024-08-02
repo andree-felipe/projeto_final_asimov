@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors, control_flow_in_finally
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../components/signup_form.dart';
 import '../../core/models/signup_form_data.dart';
 import '../../core/services/auth/auth_service.dart';
@@ -41,18 +39,8 @@ class _SignupPageState extends State<SignupPage> {
             Center(
               child: Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50),
-                    height: 110,
-                    width: 110,
-                    child: SvgPicture.asset(
-                      'assets/images/main_logo.svg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(height: 30),
                   Center(
-                    child: SignupForm(onSubmit: _handleSubmit,),
+                    child: SignupForm(onSubmit: _handleSubmit, fromLoginForm: true),
                   ),
                 ],
               ),
