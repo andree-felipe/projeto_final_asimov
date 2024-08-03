@@ -60,11 +60,6 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 Container(
                   width: 300,
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(15),
-                  //   border: Border.all(
-                  //       color: const Color.fromRGBO(142, 30, 3, 1), width: 1.5),
-                  // ),
                   child: TextFormField(
                     key: ValueKey('email'),
                     initialValue: _loginFormData.email,
@@ -108,11 +103,6 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 Container(
                   width: 300,
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(15),
-                  //   border: Border.all(
-                  //       color: const Color.fromRGBO(142, 30, 3, 1), width: 1.5),
-                  // ),
                   child: TextFormField(
                     key: ValueKey('password'),
                     initialValue: _loginFormData.password,
