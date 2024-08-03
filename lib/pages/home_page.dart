@@ -11,7 +11,7 @@ import 'package:projeto_final_asimov/pages/home_options/products/stockist_produc
 import '../core/services/auth/auth_service.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
