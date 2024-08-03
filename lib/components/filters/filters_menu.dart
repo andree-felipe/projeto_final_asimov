@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:projeto_final_asimov/core/models/filter_button.dart';
+import 'package:projeto_final_asimov/components/filters/filter_button.dart';
 
 class FiltersMenu extends StatefulWidget {
   // const FiltersMenu({super.key});

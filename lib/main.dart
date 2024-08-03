@@ -3,13 +3,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/pages/auth/signup_page.dart';
+import 'package:projeto_final_asimov/pages/home_options/products/register_new_product_page.dart';
 import 'package:projeto_final_asimov/pages/home_options/profile_page.dart';
-import 'package:projeto_final_asimov/pages/products/reader_products.dart';
+import 'package:projeto_final_asimov/pages/home_options/products/reader_products.dart';
+import 'components/products/product_card.dart';
 import 'firebase_options.dart';
 import 'pages/app_or_auth_page.dart';
 import 'pages/home_page.dart';
 import 'pages/auth/login_or_signup_page.dart';
-import 'pages/products/stockist_products.dart';
+import 'pages/home_options/products/stockist_products.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
