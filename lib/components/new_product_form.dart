@@ -57,7 +57,7 @@ class _NewProductFormState extends State<NewProductForm> {
       return _showError('Imagem não selecionada');
     }
 
-    _alreadyRegisteredVerification(_newProductFormData.name, _newProductFormData.brand);
+    await _alreadyRegisteredVerification(_newProductFormData.name, _newProductFormData.brand);
     if(_returnValue) {
       return _showError('Esse produto, dessa marca, já está cadastrado');
     }
@@ -72,6 +72,8 @@ class _NewProductFormState extends State<NewProductForm> {
       _newProductFormData.description,
       _newProductFormData.editedBy,
     );
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -277,9 +279,7 @@ class _NewProductFormState extends State<NewProductForm> {
                 child: ElevatedButton(
                   onPressed: () async {
                     _newProductFormData.editedBy = _currentUser!.email;
-
                     await _submitForm();
-                    Navigator.of(context).pop();
                   },
                   style: ButtonStyle(
                     elevation: WidgetStatePropertyAll<double>(5),

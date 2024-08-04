@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/components/filters/filters_menu.dart';
 
+import '../../../components/products/products_list.dart';
 import 'register_new_product_page.dart';
 
 class StockistProducts extends StatefulWidget {
@@ -85,7 +86,15 @@ class _StockistProductsState extends State<StockistProducts> {
             ),
           ),
           // Lista de produtos (baseado no filtro)
-          // ProductsList(),
+          Scrollbar(
+            thumbVisibility: true,
+            child: SingleChildScrollView(
+              child: Container(
+                height: 500,
+                child: ProductsList(userType: 'estoquista'),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -95,20 +104,17 @@ class _StockistProductsState extends State<StockistProducts> {
         elevation: 0,
         label: Text(
           'Cadastrar produto',
-          style: TextStyle(
-            color: Color.fromRGBO(52, 52, 52, 1)
-          ),
+          style: TextStyle(color: Color.fromRGBO(52, 52, 52, 1)),
         ),
         icon: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Color.fromRGBO(142, 30, 3, 1), width: 2)
-          ),
-          child: Icon(
-            Icons.add,
-            color: Color.fromRGBO(142, 30, 3, 1),
-          )
-        ),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                    Border.all(color: Color.fromRGBO(142, 30, 3, 1), width: 2)),
+            child: Icon(
+              Icons.add,
+              color: Color.fromRGBO(142, 30, 3, 1),
+            )),
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (ctx) {
