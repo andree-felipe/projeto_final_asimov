@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/components/filters/filters_menu.dart';
 
+import '../../../components/products/products_list.dart';
+
 class ReaderProducts extends StatefulWidget {
   const ReaderProducts({super.key});
 
@@ -86,7 +88,15 @@ class _ReaderProductsState extends State<ReaderProducts> {
             ),
           ),
           // Lista de produtos (baseado no filtro)
-          // ProductsList(),
+          Scrollbar(
+            thumbVisibility: true,
+            child: SingleChildScrollView(
+              child: Container(
+                height: 576,
+                child: ProductsList(userType: 'leitor'),
+              ),
+            ),
+          ),
         ],
       ),
     );
