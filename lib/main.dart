@@ -6,6 +6,7 @@ import 'package:projeto_final_asimov/pages/auth/signup_page.dart';
 import 'package:projeto_final_asimov/pages/home_options/products/register_new_product_page.dart';
 import 'package:projeto_final_asimov/pages/home_options/profile_page.dart';
 import 'package:projeto_final_asimov/pages/home_options/products/reader_products.dart';
+import 'package:projeto_final_asimov/pages/home_options/stock/stockist_stock.dart';
 import 'components/products/product_card.dart';
 import 'firebase_options.dart';
 import 'pages/app_or_auth_page.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const AppOrAuthPage(),
+      home: const StockistStock(),
       debugShowCheckedModeBanner: false,
       title: 'ConstrueStock',
       theme: ThemeData(
