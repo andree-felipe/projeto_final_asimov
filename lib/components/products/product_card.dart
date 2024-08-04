@@ -79,7 +79,7 @@ class ProductCard extends StatelessWidget {
                           SizedBox(height: 15),
                           Text('Data de cadastro',
                               style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text(DateFormat('d MMM y')
+                          Text(DateFormat('dd/MM/yyyy')
                               .format(product.registrationDate)),
                         ],
                       ),
