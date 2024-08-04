@@ -33,10 +33,11 @@ class ProductFirebaseService implements ProductService {
     String name,
     String type,
     String brand,
-    int quantity,
     DateTime registerDate,
     DateTime lastEditDate,
     File? image,
+    String description,
+    String editedBy,
   ) async {
     final store = FirebaseFirestore.instance;
 
@@ -48,10 +49,11 @@ class ProductFirebaseService implements ProductService {
       name: name,
       type: type,
       brand: brand,
-      quantity: quantity,
-      registerDate: registerDate,
+      registrationDate: registerDate,
       lastEditDate: lastEditDate,
       imageURL: imageURL!,
+      description: description,
+      editedBy: editedBy,
     );
 
     final docRef = await store.collection('products').withConverter(fromFirestore: _fromFirestore, toFirestore: _toFirestore).add(product);
@@ -67,10 +69,11 @@ class ProductFirebaseService implements ProductService {
       'name': product.name,
       'type': product.type,
       'brand': product.brand,
-      'stock': product.quantity,
-      'registrationDate': product.registerDate,
+      'registrationDate': product.registrationDate,
       'lastEditDate': product.lastEditDate,
       'imageURL': product.imageURL,
+      'description': product.description,
+      'editedBy': product.editedBy,
     };
   }
 
@@ -78,15 +81,22 @@ class ProductFirebaseService implements ProductService {
     DocumentSnapshot<Map<String, dynamic>> doc,
     SnapshotOptions? options,
   ) {
+    Timestamp registerTimestamp = doc['registrationDate'];
+    DateTime convertedRegisterDate = registerTimestamp.toDate();
+
+    Timestamp editTimestamp = doc['lastEditDate'];
+    DateTime convertedEditDate = editTimestamp.toDate();
+
     return Product(
       id: doc.id,
       name: doc['name'],
       type: doc['type'],
       brand: doc['brand'],
-      quantity: doc['stock'],
-      registerDate: doc['registerDate'],
-      lastEditDate: doc['lastEditDate'],
-      imageURL: doc['imageURL']
+      registrationDate: convertedRegisterDate,
+      lastEditDate: convertedEditDate,
+      imageURL: doc['imageURL'],
+      description: doc['description'],
+      editedBy: doc['editedBy'],
     );
   }
 

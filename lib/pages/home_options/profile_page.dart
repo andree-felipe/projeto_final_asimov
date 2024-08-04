@@ -16,6 +16,10 @@ class ProfilePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Positioned(
+            top: 100,
+            width: 10,
+            child: CircleAvatar()),
           Container(
             color: Colors.white,
             width: screenWidth,

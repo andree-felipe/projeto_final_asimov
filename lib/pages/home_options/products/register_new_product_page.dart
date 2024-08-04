@@ -12,29 +12,7 @@ class RegisterNewProductPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 50),
             NewProductForm(),
-            SizedBox(height: 40),
-            Container(
-              width: 300,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  elevation: WidgetStatePropertyAll<double>(5),
-                  backgroundColor: WidgetStatePropertyAll<Color>(
-                      const Color.fromRGBO(142, 30, 3, 1)),
-                ),
-                child: Text(
-                  'Cadastrar no estoque',
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
