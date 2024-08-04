@@ -10,10 +10,11 @@ abstract class ProductService {
     String title,
     String type,
     String brand,
-    int quantity,
     DateTime registerDate,
     DateTime lastEditDate,
     File? image,
+    String description,
+    String editedBy,
   );
 
   factory ProductService() {
