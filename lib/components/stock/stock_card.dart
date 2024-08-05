@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/core/models/stock.dart';
 
 import 'package:intl/intl.dart';
+
+import 'add_quantity_form.dart';
 
 class StockCard extends StatelessWidget {
   final Stock stock;
@@ -17,18 +19,27 @@ class StockCard extends StatelessWidget {
     required this.type,
   });
 
-  Widget _showProductImage(String imageURL) {
-    ImageProvider? provider;
-    final uri = Uri.parse(imageURL);
+  // Widget _showProductImage(String imageURL) {
+  //   ImageProvider? provider;
+  //   final uri = Uri.parse(imageURL);
 
-    if (uri.path.contains('http')) {
-      provider = NetworkImage(uri.toString());
-    } else {
-      provider = FileImage(File(uri.toString()));
-    }
+  //   if (uri.path.contains('http')) {
+  //     provider = NetworkImage(uri.toString());
+  //   } else {
+  //     provider = FileImage(File(uri.toString()));
+  //   }
 
-    return CircleAvatar(
-      backgroundImage: provider,
+  //   return CircleAvatar(
+  //     backgroundImage: provider,
+  //   );
+  // }
+
+  _openStockFormModal(BuildContext context, Stock stockToUpdate) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return AddQuantityForm(stock: stockToUpdate);
+      },
     );
   }
 
@@ -93,11 +104,11 @@ class StockCard extends StatelessWidget {
               ),
             ],
           ),
-          if(type == 'estoquista')
+          if (type == 'estoquista')
             Container(
               height: 35,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () => _openStockFormModal(context, stock),
                 child: Text(
                   'Adicionar quantidade',
                 ),
