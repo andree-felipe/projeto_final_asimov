@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _currentUser = AuthService().currentUser;
   String _currentUserPermission = '';
+  String _currentUserCode = '';
 
   Future<void> _findCurrentUserType() async {
     QuerySnapshot query = await FirebaseFirestore.instance
@@ -31,9 +32,11 @@ class _HomePageState extends State<HomePage> {
 
     final userDoc = query.docs.first;
     String permissionType = userDoc.get('role');
+    String code = userDoc.get('identificationCode');
 
     setState(() {
       _currentUserPermission = permissionType;
+      _currentUserCode = code;
     });
   }
 
@@ -58,10 +61,17 @@ class _HomePageState extends State<HomePage> {
               width: 300,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                    return ProfilePage();
-                  }));
+                onPressed: () async {
+                  await _findCurrentUserType();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) {
+                      return ProfilePage(
+                        currentUser: _currentUser!,
+                        permissionType: _currentUserPermission,
+                        identificationCode: _currentUserCode,
+                      );
+                    }),
+                  );
                 },
                 style: ButtonStyle(
                     elevation: WidgetStatePropertyAll<double>(8),
