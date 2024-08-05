@@ -90,6 +90,7 @@ class _RegisterNewStockState extends State<RegisterNewStock> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(142, 30, 3, 1),
         title: Text(

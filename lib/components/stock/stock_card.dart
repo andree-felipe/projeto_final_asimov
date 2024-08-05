@@ -3,6 +3,7 @@
 // import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:projeto_final_asimov/components/stock/writeoff_form.dart';
 import 'package:projeto_final_asimov/core/models/stock.dart';
 
 import 'package:intl/intl.dart';
@@ -34,7 +35,7 @@ class StockCard extends StatelessWidget {
   //   );
   // }
 
-  _openStockFormModal(BuildContext context, Stock stockToUpdate) {
+  _openAddStockModal(BuildContext context, Stock stockToUpdate) {
     showModalBottomSheet(
       context: context,
       builder: (_) {
@@ -43,10 +44,19 @@ class StockCard extends StatelessWidget {
     );
   }
 
+  _openRegisterWriteoffModal(BuildContext context, Stock stockToWriteoff) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return WriteoffForm(stock: stockToWriteoff);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: type == 'leitor' ? 115 : 147,
+      height: type == 'leitor' ? 115 : 155,
       padding: EdgeInsets.all(8),
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -105,13 +115,42 @@ class StockCard extends StatelessWidget {
             ],
           ),
           if (type == 'estoquista')
+          SizedBox(height: 7),
             Container(
-              height: 35,
-              child: TextButton(
-                onPressed: () => _openStockFormModal(context, stock),
-                child: Text(
-                  'Adicionar quantidade',
-                ),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(142, 30, 3, 0.3),
+                borderRadius: BorderRadius.circular(12)
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    height: 35,
+                    child: TextButton(
+                      onPressed: () => _openAddStockModal(context, stock),
+                      child: Text(
+                        'Adicionar quantidade',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 80),
+                  Container(
+                    height: 35,
+                    child: TextButton(
+                      onPressed: () => _openRegisterWriteoffModal(context, stock),
+                      child: Text(
+                        'Realizar baixa',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
         ],
