@@ -16,7 +16,7 @@ class ProductFirebaseService implements ProductService {
     final snapshots = store
         .collection('products')
         .withConverter(
-          fromFirestore: _fromFirestore, 
+          fromFirestore: _fromFirestore,
           toFirestore: _toFirestore,
         )
         .snapshots();
@@ -56,7 +56,10 @@ class ProductFirebaseService implements ProductService {
       editedBy: editedBy,
     );
 
-    final docRef = await store.collection('products').withConverter(fromFirestore: _fromFirestore, toFirestore: _toFirestore).add(product);
+    final docRef = await store
+        .collection('products')
+        .withConverter(fromFirestore: _fromFirestore, toFirestore: _toFirestore)
+        .add(product);
     final doc = await docRef.get();
     return doc.data()!;
   }
@@ -101,7 +104,7 @@ class ProductFirebaseService implements ProductService {
   }
 
   Future<String?> _uploadProductImage(File? image, String imageName) async {
-    if(image == null) return null;
+    if (image == null) return null;
 
     final storage = FirebaseStorage.instance;
     final imageRef = storage.ref().child('products_images').child(imageName);
