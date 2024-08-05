@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:projeto_final_asimov/core/models/stock_log.dart';
+import 'package:projeto_final_asimov/core/models/stock.dart';
 import 'package:projeto_final_asimov/core/services/stock/stock_service.dart';
 
 class StockFirebaseService implements StockService {
   @override
-  Stream<List<StockLog>> stockStream() {
+  Stream<List<Stock>> stockStream() {
     final store = FirebaseFirestore.instance;
 
     final snapshots = store
-        .collection('products')
+        .collection('stock')
         .withConverter(
           fromFirestore: _fromFirestore,
           toFirestore: _toFirestore,
@@ -23,14 +23,14 @@ class StockFirebaseService implements StockService {
   }
 
   @override
-  Future<StockLog?> save(
+  Future<Stock?> save(
     String productName,
     String batch,
     int quantity,
   ) async {
     final store = FirebaseFirestore.instance;
 
-    final stockLog = StockLog(
+    final stock = Stock(
       id: '',
       productName: productName,
       batch: batch,
@@ -41,32 +41,32 @@ class StockFirebaseService implements StockService {
     final docRef = await store
         .collection('stock')
         .withConverter(fromFirestore: _fromFirestore, toFirestore: _toFirestore)
-        .add(stockLog);
+        .add(stock);
 
     final doc = await docRef.get();
     return doc.data()!;
   }
 
   Map<String, dynamic> _toFirestore(
-    StockLog stocklog,
+    Stock stock,
     SetOptions? options,
   ) {
     return {
-      'productName': stocklog.productName,
-      'batch': stocklog.batch,
-      'quantity': stocklog.quantity,
-      'registrationDate': stocklog.registrationDate,
+      'productName': stock.productName,
+      'batch': stock.batch,
+      'quantity': stock.quantity,
+      'registrationDate': stock.registrationDate,
     };
   }
 
-  StockLog _fromFirestore(
+  Stock _fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> doc,
     SnapshotOptions? options,
   ) {
     Timestamp registerTimestamp = doc['registrationDate'];
     DateTime convertedRegisterDate = registerTimestamp.toDate();
 
-    return StockLog(
+    return Stock(
       id: doc.id,
       productName: doc['productName'],
       batch: doc['batch'],

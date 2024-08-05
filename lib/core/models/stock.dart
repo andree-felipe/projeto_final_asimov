@@ -1,12 +1,12 @@
 
-class StockLog {
+class Stock {
   final String id;
   final String productName;
   final String batch;
   final int quantity;
   final DateTime registrationDate;
   
-  StockLog({
+  Stock({
     required this.id,
     required this.productName,
     required this.batch,

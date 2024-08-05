@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const StockistStock(),
+      home: const HomePage(),
       debugShowCheckedModeBanner: false,
       title: 'ConstrueStock',
       theme: ThemeData(
