@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:projeto_final_asimov/core/models/stock_log.dart';
 import 'package:projeto_final_asimov/core/services/stock/stock_service.dart';
 
-import '../../models/product.dart';
-
 class StockFirebaseService implements StockService {
   @override
   Stream<List<StockLog>> stockStream() {
@@ -26,7 +24,7 @@ class StockFirebaseService implements StockService {
 
   @override
   Future<StockLog?> save(
-    Product product,
+    String productName,
     String batch,
     int quantity,
   ) async {
@@ -34,7 +32,7 @@ class StockFirebaseService implements StockService {
 
     final stockLog = StockLog(
       id: '',
-      product: product,
+      productName: productName,
       batch: batch,
       quantity: quantity,
       registrationDate: DateTime.now(),
@@ -54,7 +52,7 @@ class StockFirebaseService implements StockService {
     SetOptions? options,
   ) {
     return {
-      'product': stocklog.product!.name,
+      'productName': stocklog.productName,
       'batch': stocklog.batch,
       'quantity': stocklog.quantity,
       'registrationDate': stocklog.registrationDate,
@@ -65,12 +63,15 @@ class StockFirebaseService implements StockService {
     DocumentSnapshot<Map<String, dynamic>> doc,
     SnapshotOptions? options,
   ) {
+    Timestamp registerTimestamp = doc['registrationDate'];
+    DateTime convertedRegisterDate = registerTimestamp.toDate();
+
     return StockLog(
       id: doc.id,
-      product: doc['product'],
+      productName: doc['productName'],
       batch: doc['batch'],
       quantity: doc['quantity'],
-      registrationDate: doc['registrationDate'],
+      registrationDate: convertedRegisterDate,
     );
   }
 }
