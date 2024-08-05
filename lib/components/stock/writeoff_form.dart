@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/stock.dart';
 
-class AddQuantityForm extends StatefulWidget {
+class WriteoffForm extends StatefulWidget {
   final Stock stock;
 
-  const AddQuantityForm({
+  const WriteoffForm({
     super.key,
     required this.stock,
   });
 
   @override
-  State<AddQuantityForm> createState() => _AddQuantityFormState();
+  State<WriteoffForm> createState() => _WriteoffFormState();
 }
 
-class _AddQuantityFormState extends State<AddQuantityForm> {
+class _WriteoffFormState extends State<WriteoffForm> {
   final _formKey = GlobalKey<FormState>();
   int _quantity = 0;
 
@@ -52,7 +52,7 @@ class _AddQuantityFormState extends State<AddQuantityForm> {
               width: 300,
               child: Text(
                 textAlign: TextAlign.center,
-                'Insira a quantidade que deseja adicionar ao estoque',
+                'Insira a quantidade que deseja dar baixa no estoque',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -104,7 +104,7 @@ class _AddQuantityFormState extends State<AddQuantityForm> {
               height: 40,
               child: ElevatedButton(
                 onPressed: () async {
-                  final int newQuantity = (widget.stock.quantity + _quantity);
+                  final int newQuantity = (widget.stock.quantity - _quantity);
                   await _submitForm(widget.stock.productName, newQuantity);
                 },
                 style: ButtonStyle(
@@ -113,7 +113,7 @@ class _AddQuantityFormState extends State<AddQuantityForm> {
                       const Color.fromRGBO(142, 30, 3, 1)),
                 ),
                 child: Text(
-                  'Adicionar',
+                  'Registrar',
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 18,

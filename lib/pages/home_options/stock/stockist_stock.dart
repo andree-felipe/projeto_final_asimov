@@ -23,7 +23,10 @@ class _StockistStockState extends State<StockistStock> {
     final querySnapshots = await productsList.get();
 
     for(final doc in querySnapshots.docs) {
-      _productsNames.add(doc['name']);
+      final productName = doc['name'];
+      if(!_productsNames.contains(productName)) {
+        _productsNames.add(doc['name']);
+      }
     }
   }
 
