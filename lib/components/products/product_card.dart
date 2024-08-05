@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import '../../core/models/product.dart';
 import 'package:intl/intl.dart';
 
+import '../../pages/home_options/products/edit_product_page.dart';
+
 class ProductCard extends StatelessWidget {
   final Product product;
   final String type;
@@ -98,7 +100,13 @@ class ProductCard extends StatelessWidget {
             Container(
               height: 35,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) {
+                      return EditProductPage(product: product);
+                    }),
+                  );
+                },
                 child: Text(
                   'Editar produto',
                 ),

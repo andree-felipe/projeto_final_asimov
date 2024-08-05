@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class _AddQuantityFormState extends State<AddQuantityForm> {
         key: _formKey,
         child: Column(
           children: [
-            SizedBox(height: 50),
+            SizedBox(height: 30),
             Container(
               width: 300,
               child: Text(
@@ -55,7 +55,7 @@ class _AddQuantityFormState extends State<AddQuantityForm> {
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             Container(
               width: 100,
               child: TextFormField(
