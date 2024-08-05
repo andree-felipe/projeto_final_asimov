@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projeto_final_asimov/core/models/new_stock_form_data.dart';
 import 'package:projeto_final_asimov/core/models/product.dart';
+import 'package:projeto_final_asimov/core/services/stock/stock_service.dart';
 
 class RegisterNewStock extends StatefulWidget {
   final List<String> productsNames;
@@ -22,28 +23,68 @@ class _RegisterNewStockState extends State<RegisterNewStock> {
   final _formKey = GlobalKey<FormState>();
   final _newStockFormData = NewStockFormData();
   String? _selectedType;
-  
+
   _findProduct(String productName) async {
-    final productsCollection = FirebaseFirestore.instance.collection('products');
-    QuerySnapshot querySnapshot = await productsCollection.where('name', isEqualTo: productName).get();
+    final productsCollection =
+        FirebaseFirestore.instance.collection('products');
+    QuerySnapshot querySnapshot =
+        await productsCollection.where('name', isEqualTo: productName).get();
 
     final doc = querySnapshot.docs.first;
 
-    _createProduct(doc.id, doc['name'], doc['type'], doc['brand'], doc['registrationDate'], doc['lastEditDate'], doc['imageURL'], doc['description'], doc['editedBy']);
+    Timestamp registerTimestamp = doc['registrationDate'];
+    DateTime convertedRegisterDate = registerTimestamp.toDate();
+
+    Timestamp editTimestamp = doc['lastEditDate'];
+    DateTime convertedEditDate = editTimestamp.toDate();
+
+    _createProduct(
+      doc.id,
+      doc['name'],
+      doc['type'],
+      doc['brand'],
+      convertedRegisterDate,
+      convertedEditDate,
+      doc['imageURL'],
+      doc['description'],
+      doc['editedBy'],
+    );
   }
 
   Product _createProduct(
-    String id,
-    String name,
-    String type,
-    String brand,
-    DateTime registrationDate,
-    DateTime lastEditDate,
-    String imageURL,
-    String description,
-    String editedBy
-  ) {
-    return Product(id: id, name: name, type: type, brand: brand, registrationDate: registrationDate, lastEditDate: lastEditDate, imageURL: imageURL, description: description, editedBy: editedBy,);
+      String id,
+      String name,
+      String type,
+      String brand,
+      DateTime registrationDate,
+      DateTime lastEditDate,
+      String imageURL,
+      String description,
+      String editedBy) {
+    return Product(
+      id: id,
+      name: name,
+      type: type,
+      brand: brand,
+      registrationDate: registrationDate,
+      lastEditDate: lastEditDate,
+      imageURL: imageURL,
+      description: description,
+      editedBy: editedBy,
+    );
+  }
+
+  Future<void> _submitForm() async {
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) return;
+
+    await StockService().save(
+      _newStockFormData.productName,
+      _newStockFormData.batch,
+      _newStockFormData.quantity,
+    );
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -96,7 +137,7 @@ class _RegisterNewStockState extends State<RegisterNewStock> {
                       height: 60,
                       child: DropdownButtonFormField(
                         value: _selectedType,
-                        items: widget.productsNames.map((name) {
+                        items: widget.productsNames.map((String name) {
                           return DropdownMenuItem<String>(
                             value: name,
                             child: Text(name),
@@ -104,8 +145,7 @@ class _RegisterNewStockState extends State<RegisterNewStock> {
                         }).toList(),
                         onChanged: (newValue) {
                           setState(() {
-                            final formProduct = _findProduct(newValue!); 
-                            _newStockFormData.product = formProduct;
+                            _newStockFormData.productName = newValue!;
                           });
                         },
                         hint: Text('Selecione o produto'),
@@ -242,7 +282,7 @@ class _RegisterNewStockState extends State<RegisterNewStock> {
                       width: 300,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: _submitForm,
                         style: ButtonStyle(
                           elevation: WidgetStatePropertyAll<double>(5),
                           backgroundColor: WidgetStatePropertyAll<Color>(
