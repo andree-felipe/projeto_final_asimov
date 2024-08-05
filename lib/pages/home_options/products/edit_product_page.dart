@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../components/product_image_picker.dart';
+import '../../../components/products/product_image_picker.dart';
 import '../../../core/models/product.dart';
 
 class EditProductPage extends StatefulWidget {

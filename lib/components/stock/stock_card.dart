@@ -144,7 +144,7 @@ class StockCard extends StatelessWidget {
                       child: Text(
                         'Realizar baixa',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Color.fromRGBO(142, 30, 3, 1),
                           fontWeight: FontWeight.normal
                         ),
                       ),
