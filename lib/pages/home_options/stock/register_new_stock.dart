@@ -1,11 +1,18 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unused_field, prefer_final_fields
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projeto_final_asimov/core/models/new_stock_form_data.dart';
+import 'package:projeto_final_asimov/core/models/product.dart';
 
 class RegisterNewStock extends StatefulWidget {
-  const RegisterNewStock({super.key});
+  final List<String> productsNames;
+
+  const RegisterNewStock({
+    super.key,
+    required this.productsNames,
+  });
 
   @override
   State<RegisterNewStock> createState() => _RegisterNewStockState();
@@ -15,6 +22,29 @@ class _RegisterNewStockState extends State<RegisterNewStock> {
   final _formKey = GlobalKey<FormState>();
   final _newStockFormData = NewStockFormData();
   String? _selectedType;
+  
+  _findProduct(String productName) async {
+    final productsCollection = FirebaseFirestore.instance.collection('products');
+    QuerySnapshot querySnapshot = await productsCollection.where('name', isEqualTo: productName).get();
+
+    final doc = querySnapshot.docs.first;
+
+    _createProduct(doc.id, doc['name'], doc['type'], doc['brand'], doc['registrationDate'], doc['lastEditDate'], doc['imageURL'], doc['description'], doc['editedBy']);
+  }
+
+  Product _createProduct(
+    String id,
+    String name,
+    String type,
+    String brand,
+    DateTime registrationDate,
+    DateTime lastEditDate,
+    String imageURL,
+    String description,
+    String editedBy
+  ) {
+    return Product(id: id, name: name, type: type, brand: brand, registrationDate: registrationDate, lastEditDate: lastEditDate, imageURL: imageURL, description: description, editedBy: editedBy,);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,22 +96,16 @@ class _RegisterNewStockState extends State<RegisterNewStock> {
                       height: 60,
                       child: DropdownButtonFormField(
                         value: _selectedType,
-                        items: [
-                          'Ferramentas manuais',
-                          'Ferramentas elétricas',
-                          'Materiais de construção',
-                          'Tintas e acabamentos',
-                          'Tubos e conexões',
-                        ].map((String type) {
+                        items: widget.productsNames.map((name) {
                           return DropdownMenuItem<String>(
-                            value: type,
-                            child: Text(type),
+                            value: name,
+                            child: Text(name),
                           );
                         }).toList(),
                         onChanged: (newValue) {
                           setState(() {
-                            // Achar produto no firebase
-                            _newStockFormData.product = null;
+                            final formProduct = _findProduct(newValue!); 
+                            _newStockFormData.product = formProduct;
                           });
                         },
                         hint: Text('Selecione o produto'),

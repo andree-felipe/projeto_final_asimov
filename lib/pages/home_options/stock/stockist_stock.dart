@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_final_fields
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/components/filters/filters_menu.dart';
 
@@ -14,6 +15,16 @@ class StockistStock extends StatefulWidget {
 
 class _StockistStockState extends State<StockistStock> {
   final String _selectedFilter = 'Todos';
+  List<String> _productsNames = [];
+
+  Future<void> _getProductNames() async {
+    final productsList = FirebaseFirestore.instance.collection('products');
+    final querySnapshots = await productsList.get();
+
+    for(final doc in querySnapshots.docs) {
+      _productsNames.add(doc['name']);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,10 +128,11 @@ class _StockistStockState extends State<StockistStock> {
               Icons.add,
               color: Color.fromRGBO(142, 30, 3, 1),
             )),
-        onPressed: () {
+        onPressed: () async {
+          await _getProductNames();
           Navigator.of(context).push(
             MaterialPageRoute(builder: (ctx) {
-              return RegisterNewStock();
+              return RegisterNewStock(productsNames: _productsNames);
             }),
           );
         },
