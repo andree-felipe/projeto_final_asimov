@@ -2,6 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_final_asimov/core/services/auth/auth_service.dart';
+import 'package:projeto_final_asimov/core/services/writeoff/writeoff_service.dart';
 
 import '../../core/models/stock.dart';
 
@@ -18,8 +20,17 @@ class WriteoffForm extends StatefulWidget {
 }
 
 class _WriteoffFormState extends State<WriteoffForm> {
+  final _currentUser = AuthService().currentUser;
   final _formKey = GlobalKey<FormState>();
   int _quantity = 0;
+  String _productId = '';
+
+  Future<void> _getProductId(String nameToFind) async {
+    final productsList = FirebaseFirestore.instance.collection('products');
+    final querySnapshot = await productsList.where('name', isEqualTo: nameToFind).get();
+
+    _productId = querySnapshot.docs.first.id;
+  }
 
   Future<void> _submitForm(String stockProductName, int newQuantity) async {
     final isValid = _formKey.currentState?.validate() ?? false;
@@ -30,6 +41,8 @@ class _WriteoffFormState extends State<WriteoffForm> {
 
     final documentSnapshot = querySnapshot.docs.first;
     await documentSnapshot.reference.update({'quantity': newQuantity});
+
+    WriteoffService().save('baixa', _productId, _quantity, _currentUser!.email);
 
     Navigator.of(context).pop();
   }
@@ -105,6 +118,7 @@ class _WriteoffFormState extends State<WriteoffForm> {
               child: ElevatedButton(
                 onPressed: () async {
                   final int newQuantity = (widget.stock.quantity - _quantity);
+                  await _getProductId(widget.stock.productName);
                   await _submitForm(widget.stock.productName, newQuantity);
                 },
                 style: ButtonStyle(

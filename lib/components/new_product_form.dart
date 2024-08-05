@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:projeto_final_asimov/components/product_image_picker.dart';
+import 'package:projeto_final_asimov/components/products/product_image_picker.dart';
 import 'package:projeto_final_asimov/core/models/new_product_form_data.dart';
 import 'package:projeto_final_asimov/core/services/auth/auth_service.dart';
 
