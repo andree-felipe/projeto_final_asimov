@@ -1,11 +1,11 @@
 import 'package:projeto_final_asimov/core/services/stock/stock_firebase_service.dart';
 
-import '../../models/stock_log.dart';
+import '../../models/stock.dart';
 
 abstract class StockService {
-  Stream<List<StockLog>> stockStream();
+  Stream<List<Stock>> stockStream();
 
-  Future<StockLog?> save(
+  Future<Stock?> save(
     String productName,
     String batch,
     int quantity,

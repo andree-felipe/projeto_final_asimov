@@ -13,7 +13,7 @@ import 'home_options/stock/reader_stock.dart';
 import 'home_options/stock/stockist_stock.dart';
 
 class HomePage extends StatefulWidget {
-  const  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -23,9 +23,11 @@ class _HomePageState extends State<HomePage> {
   final _currentUser = AuthService().currentUser;
   String _currentUserPermission = '';
 
-
   Future<void> _findCurrentUserType() async {
-    QuerySnapshot query = await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: _currentUser?.email).get();
+    QuerySnapshot query = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: _currentUser?.email)
+        .get();
 
     final userDoc = query.docs.first;
     String permissionType = userDoc.get('role');
@@ -43,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 150),
+              margin: EdgeInsets.only(top: 110),
               height: 110,
               width: 110,
               child: SvgPicture.asset(
@@ -57,17 +59,15 @@ class _HomePageState extends State<HomePage> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (ctx) {
-                      return ProfilePage();
-                    })
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                    return ProfilePage();
+                  }));
                 },
                 style: ButtonStyle(
-                  elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
-                  alignment: Alignment.center
-                ),
+                    elevation: WidgetStatePropertyAll<double>(8),
+                    backgroundColor: WidgetStatePropertyAll<Color>(
+                        Color.fromRGBO(142, 30, 3, 1)),
+                    alignment: Alignment.center),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 75),
                   child: Row(
@@ -99,20 +99,19 @@ class _HomePageState extends State<HomePage> {
                   await _findCurrentUserType();
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (ctx) {
-                      if(_currentUserPermission == 'estoquista') {
+                      if (_currentUserPermission == 'estoquista') {
                         return StockistProducts();
-                      }
-                      else {
+                      } else {
                         return ReaderProducts();
                       }
                     }),
                   );
                 },
                 style: ButtonStyle(
-                  elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
-                  alignment: Alignment.center
-                ),
+                    elevation: WidgetStatePropertyAll<double>(8),
+                    backgroundColor: WidgetStatePropertyAll<Color>(
+                        Color.fromRGBO(142, 30, 3, 1)),
+                    alignment: Alignment.center),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 65),
                   child: Row(
@@ -144,20 +143,19 @@ class _HomePageState extends State<HomePage> {
                   await _findCurrentUserType();
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (ctx) {
-                      if(_currentUserPermission == 'estoquista') {
+                      if (_currentUserPermission == 'estoquista') {
                         return StockistStock();
-                      }
-                      else {
+                      } else {
                         return ReaderStock();
                       }
                     }),
                   );
                 },
                 style: ButtonStyle(
-                  elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
-                  alignment: Alignment.center
-                ),
+                    elevation: WidgetStatePropertyAll<double>(8),
+                    backgroundColor: WidgetStatePropertyAll<Color>(
+                        Color.fromRGBO(142, 30, 3, 1)),
+                    alignment: Alignment.center),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 65),
                   child: Row(
@@ -187,10 +185,10 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {},
                 style: ButtonStyle(
-                  elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
-                  alignment: Alignment.center
-                ),
+                    elevation: WidgetStatePropertyAll<double>(8),
+                    backgroundColor: WidgetStatePropertyAll<Color>(
+                        Color.fromRGBO(142, 30, 3, 1)),
+                    alignment: Alignment.center),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 65),
                   child: Row(
@@ -222,14 +220,18 @@ class _HomePageState extends State<HomePage> {
                   AuthService().logout();
                 },
                 style: ButtonStyle(
-                  elevation: WidgetStatePropertyAll<double>(8),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Color.fromRGBO(142, 30, 3, 1)),
-                  alignment: Alignment.center
-                ),
+                    elevation: WidgetStatePropertyAll<double>(8),
+                    backgroundColor: WidgetStatePropertyAll<Color>(
+                        Color.fromRGBO(142, 30, 3, 1)),
+                    alignment: Alignment.center),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 65),
+                  padding: const EdgeInsets.only(left: 75),
                   child: Row(
                     children: [
+                      Icon(
+                        Icons.logout_outlined,
+                        color: Color.fromRGBO(52, 52, 52, 1),
+                      ),
                       SizedBox(width: 8),
                       Text(
                         'Logout',

@@ -1,41 +1,41 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
-// import 'dart:io';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:projeto_final_asimov/core/models/stock.dart';
 
-import '../../core/models/product.dart';
 import 'package:intl/intl.dart';
 
-class ProductCard extends StatelessWidget {
-  final Product product;
+class StockCard extends StatelessWidget {
+  final Stock stock;
   final String type;
 
-  const ProductCard({
+  const StockCard({
     super.key,
-    required this.product,
+    required this.stock,
     required this.type,
   });
 
-  // Widget _showProductImage(String imageURL) {
-  //   ImageProvider? provider;
-  //   final uri = Uri.parse(imageURL);
+  Widget _showProductImage(String imageURL) {
+    ImageProvider? provider;
+    final uri = Uri.parse(imageURL);
 
-  //   if (uri.path.contains('http')) {
-  //     provider = NetworkImage(uri.toString());
-  //   } else {
-  //     provider = FileImage(File(uri.toString()));
-  //   }
+    if (uri.path.contains('http')) {
+      provider = NetworkImage(uri.toString());
+    } else {
+      provider = FileImage(File(uri.toString()));
+    }
 
-  //   return CircleAvatar(
-  //     backgroundImage: provider,
-  //   );
-  // }
+    return CircleAvatar(
+      backgroundImage: provider,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: type == 'leitor' ? 115 : 146,
+      height: type == 'leitor' ? 115 : 147,
       padding: EdgeInsets.all(8),
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -50,7 +50,6 @@ class ProductCard extends StatelessWidget {
                   Row(
                     children: [
                       // Imagem
-                      // _showProductImage(product.imageURL),
                       Icon(
                         Icons.image_outlined,
                         size: 50,
@@ -63,13 +62,13 @@ class ProductCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Nome',
+                            Text('Produto',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text(product.name),
+                            Text(stock.productName),
                             SizedBox(height: 15),
-                            Text('Tipo',
+                            Text('Lote',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text(product.type),
+                            Text(stock.batch),
                           ],
                         ),
                       ),
@@ -78,14 +77,14 @@ class ProductCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Marca',
+                          Text('Quantidade',
                               style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text(product.brand),
+                          Text(stock.quantity.toString()),
                           SizedBox(height: 15),
                           Text('Data de cadastro',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Text(DateFormat('dd/MM/yyyy')
-                              .format(product.registrationDate)),
+                              .format(stock.registrationDate)),
                         ],
                       ),
                     ],
@@ -94,13 +93,13 @@ class ProductCard extends StatelessWidget {
               ),
             ],
           ),
-          if (type == 'estoquista')
+          if(type == 'estoquista')
             Container(
               height: 35,
               child: TextButton(
                 onPressed: () {},
                 child: Text(
-                  'Editar produto',
+                  'Adicionar quantidade',
                 ),
               ),
             ),

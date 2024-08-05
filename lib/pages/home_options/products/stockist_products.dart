@@ -31,6 +31,9 @@ class _StockistProductsState extends State<StockistProducts> {
           ),
         ),
         centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Color.fromRGBO(142, 30, 3, 1),
+        ),
       ),
       body: Column(
         children: [

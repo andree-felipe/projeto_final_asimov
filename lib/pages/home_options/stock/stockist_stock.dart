@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/components/filters/filters_menu.dart';
+import 'package:projeto_final_asimov/components/stock/stock_list.dart';
 
 import 'register_new_stock.dart';
 
@@ -99,15 +100,15 @@ class _StockistStockState extends State<StockistStock> {
             ),
           ),
           // Lista de produtos (baseado no filtro)
-          // Scrollbar(
-          //   thumbVisibility: true,
-          //   child: SingleChildScrollView(
-          //     child: Container(
-          //       height: 500,
-          //       child: ProductsList(userType: 'estoquista'),
-          //     ),
-          //   ),
-          // ),
+          Scrollbar(
+            thumbVisibility: true,
+            child: SingleChildScrollView(
+              child: Container(
+                height: 500,
+                child: StockList(userType: 'estoquista'),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
