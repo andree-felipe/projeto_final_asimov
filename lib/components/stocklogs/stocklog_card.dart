@@ -36,7 +36,7 @@ class StockLogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 115,
+      height: 131,
       padding: EdgeInsets.all(8),
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -74,7 +74,7 @@ class StockLogCard extends StatelessWidget {
                         ),
                       ),
                       // Marca e data de cadastro
-                      // SizedBox(width: 5),
+                      // SizedBox(width: 1),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
