@@ -10,8 +10,8 @@ import 'package:projeto_final_asimov/pages/home_options/products/stockist_produc
 import 'package:projeto_final_asimov/pages/home_options/stocklogs_page.dart';
 
 import '../core/services/auth/auth_service.dart';
-// import 'home_options/stock/reader_stock.dart';
-// import 'home_options/stock/stockist_stock.dart';
+import 'home_options/stock/reader_stock.dart';
+import 'home_options/stock/stockist_stock.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -155,16 +155,16 @@ class _HomePageState extends State<HomePage> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () async {
-                  // await _findCurrentUserType();
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(builder: (ctx) {
-                  //     if (_currentUserPermission == 'estoquista') {
-                  //       return StockistStock();
-                  //     } else {
-                  //       return ReaderStock();
-                  //     }
-                  //   }),
-                  // );
+                  await _findCurrentUserType();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) {
+                      if (_currentUserPermission == 'estoquista') {
+                        return StockistStock();
+                      } else {
+                        return ReaderStock();
+                      }
+                    }),
+                  );
                 },
                 style: ButtonStyle(
                     elevation: WidgetStatePropertyAll<double>(8),
