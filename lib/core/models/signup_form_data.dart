@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:io';
+
 enum AuthMode { FirstForm, SecondForm }
 
 class SignupFormData {
@@ -8,6 +10,7 @@ class SignupFormData {
   String password = '';
   String exclusiveCode = '';
   String permissionType = '';
+  File? image;
 
   AuthMode _mode = AuthMode.FirstForm;
 

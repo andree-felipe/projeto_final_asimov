@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/pages/home_options/profile_page.dart';
 import 'package:projeto_final_asimov/pages/home_options/products/reader_products.dart';
 import 'package:projeto_final_asimov/pages/home_options/products/stockist_products.dart';
+import 'package:projeto_final_asimov/pages/home_options/stocklogs_page.dart';
 
 import '../core/services/auth/auth_service.dart';
 import 'home_options/stock/reader_stock.dart';
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   final _currentUser = AuthService().currentUser;
   String _currentUserPermission = '';
   String _currentUserCode = '';
+  String _userImageURL = '';
 
   Future<void> _findCurrentUserType() async {
     QuerySnapshot query = await FirebaseFirestore.instance
@@ -33,10 +35,12 @@ class _HomePageState extends State<HomePage> {
     final userDoc = query.docs.first;
     String permissionType = userDoc.get('role');
     String code = userDoc.get('identificationCode');
+    String url = userDoc.get('imageURL');
 
     setState(() {
       _currentUserPermission = permissionType;
       _currentUserCode = code;
+      _userImageURL = url;
     });
   }
 
@@ -69,6 +73,7 @@ class _HomePageState extends State<HomePage> {
                         currentUser: _currentUser!,
                         permissionType: _currentUserPermission,
                         identificationCode: _currentUserCode,
+                        userImageURL: _userImageURL,
                       );
                     }),
                   );
@@ -193,7 +198,13 @@ class _HomePageState extends State<HomePage> {
               width: 300,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) {
+                      return StocklogsPage();
+                    }),
+                  );
+                },
                 style: ButtonStyle(
                     elevation: WidgetStatePropertyAll<double>(8),
                     backgroundColor: WidgetStatePropertyAll<Color>(

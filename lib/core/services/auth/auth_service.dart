@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import '../../models/app_user.dart';
 import 'auth_firebase_service.dart';
 
@@ -14,6 +16,7 @@ abstract class AuthService {
     String password,
     String exclusiveCode,
     String permissionType,
+    File? image,
   );
 
   Future<void> login(
