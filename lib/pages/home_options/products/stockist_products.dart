@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_final_fields, unused_field
 
 import 'package:flutter/material.dart';
 // import 'package:projeto_final_asimov/components/filters/filters_menu.dart';
@@ -19,7 +19,9 @@ class StockistProducts extends StatefulWidget {
 }
 
 class _StockistProductsState extends State<StockistProducts> {
+  Stream<List<Product>>? byNameStream;
   String _selectedFilter = 'Todos';
+  String _nameFilter = '';
 
   void _changeFilter(String newFilter) {
     setState(() {
@@ -46,139 +48,143 @@ class _StockistProductsState extends State<StockistProducts> {
           color: Color.fromRGBO(142, 30, 3, 1),
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                    color: Color.fromRGBO(56, 56, 56, 0.68), width: 1.5),
-                bottom: BorderSide(
-                    color: Color.fromRGBO(56, 56, 56, 0.68), width: 1.5),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                      color: Color.fromRGBO(56, 56, 56, 0.68), width: 1.5),
+                  bottom: BorderSide(
+                      color: Color.fromRGBO(56, 56, 56, 0.68), width: 1.5),
+                ),
               ),
-            ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  FilterButton(
-                    label: 'Todos',
-                    isSelected: _selectedFilter == 'Todos',
-                    onTap: () => _changeFilter('Todos'),
-                  ),
-                  FilterButton(
-                    label: 'Ferramentas manuais',
-                    isSelected: _selectedFilter == 'Ferramentas manuais',
-                    onTap: () => _changeFilter('Ferramentas manuais'),
-                  ),
-                  FilterButton(
-                    label: 'Ferramentas elétricas',
-                    isSelected: _selectedFilter == 'Ferramentas elétricas',
-                    onTap: () => _changeFilter('Ferramentas elétricas'),
-                  ),
-                  FilterButton(
-                    label: 'Materiais de construção',
-                    isSelected: _selectedFilter == 'Materiais de construção',
-                    onTap: () => _changeFilter('Materiais de construção'),
-                  ),
-                  FilterButton(
-                    label: 'Tintas e acabamentos',
-                    isSelected: _selectedFilter == 'Tintas e acabamentos',
-                    onTap: () => _changeFilter('Tintas e acabamentos'),
-                  ),
-                  FilterButton(
-                    label: 'Tubos e conexões',
-                    isSelected: _selectedFilter == 'Tubos e conexões',
-                    onTap: () => _changeFilter('Tubos e conexões'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-          // Barra de pesquisa
-          Container(
-            width: 350,
-            height: 40,
-            child: TextFormField(
-              key: ValueKey('searchProductName'),
-              decoration: InputDecoration(
-                hintText: 'Pesquisar por nome',
-                fillColor: Color.fromRGBO(142, 59, 38, 0.06),
-                filled: true,
-                suffixIcon: Icon(
-                  Icons.search,
-                  color: Color.fromRGBO(142, 30, 3, 1),
-                ),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: Colors.transparent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: Colors.transparent),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: Colors.transparent),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: Colors.transparent),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    FilterButton(
+                      label: 'Todos',
+                      isSelected: _selectedFilter == 'Todos',
+                      onTap: () => _changeFilter('Todos'),
+                    ),
+                    FilterButton(
+                      label: 'Ferramentas manuais',
+                      isSelected: _selectedFilter == 'Ferramentas manuais',
+                      onTap: () => _changeFilter('Ferramentas manuais'),
+                    ),
+                    FilterButton(
+                      label: 'Ferramentas elétricas',
+                      isSelected: _selectedFilter == 'Ferramentas elétricas',
+                      onTap: () => _changeFilter('Ferramentas elétricas'),
+                    ),
+                    FilterButton(
+                      label: 'Materiais de construção',
+                      isSelected: _selectedFilter == 'Materiais de construção',
+                      onTap: () => _changeFilter('Materiais de construção'),
+                    ),
+                    FilterButton(
+                      label: 'Tintas e acabamentos',
+                      isSelected: _selectedFilter == 'Tintas e acabamentos',
+                      onTap: () => _changeFilter('Tintas e acabamentos'),
+                    ),
+                    FilterButton(
+                      label: 'Tubos e conexões',
+                      isSelected: _selectedFilter == 'Tubos e conexões',
+                      onTap: () => _changeFilter('Tubos e conexões'),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-          SingleChildScrollView(
-            child: Container(
-              height: 505,
-              child: StreamBuilder<List<Product>>(
-                stream: ProductService().productStream(_selectedFilter),
-                builder: (ctx, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          Text(
-                            'Nenhum produto cadastrado',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          SizedBox(height: 20),
-                          Container(
-                            height: 200,
-                            child: Image.asset(
-                              'assets/images/waiting.png',
-                              fit: BoxFit.cover,
+            SizedBox(height: 10),
+            // Barra de pesquisa
+            Container(
+              width: 350,
+              height: 40,
+              child: TextFormField(
+                key: ValueKey('searchProductName'),
+                onChanged: (nameFilter) => _nameFilter = nameFilter,
+                decoration: InputDecoration(
+                  hintText: 'Pesquisar por nome',
+                  fillColor: Color.fromRGBO(142, 59, 38, 0.06),
+                  filled: true,
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.search),
+                    color: Color.fromRGBO(142, 30, 3, 1),
+                    onPressed: () {},
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              child: Container(
+                height: 505,
+                child: StreamBuilder<List<Product>>(
+                  stream: ProductService().productStream(_selectedFilter),
+                  builder: (ctx, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Center(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
+                            Text(
+                              'Nenhum produto cadastrado',
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    final products = snapshot.data!;
-                    return ListView.separated(
-                      padding: EdgeInsets.all(3),
-                      itemCount: products.length,
-                      itemBuilder: (ctx, i) => ProductCard(
-                        key: ValueKey(products[i].id),
-                        product: products[i],
-                        type: 'estoquista',
-                      ),
-                      separatorBuilder: (ctx, i) {
-                        return SizedBox(height: 0.5);
-                      },
-                    );
-                  }
-                },
+                            SizedBox(height: 20),
+                            Container(
+                              height: 200,
+                              child: Image.asset(
+                                'assets/images/waiting.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      final products = snapshot.data!;
+                      return ListView.separated(
+                        padding: EdgeInsets.all(3),
+                        itemCount: products.length,
+                        itemBuilder: (ctx, i) => ProductCard(
+                          key: ValueKey(products[i].id),
+                          product: products[i],
+                          type: 'estoquista',
+                        ),
+                        separatorBuilder: (ctx, i) {
+                          return SizedBox(height: 0.5);
+                        },
+                      );
+                    }
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         extendedPadding: EdgeInsets.all(0),

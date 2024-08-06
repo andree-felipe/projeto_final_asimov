@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (ctx) {
                       if (_currentUserPermission == 'estoquista') {
                         return StockistProducts();
-                      }  else {
+                      } else {
                         return ReaderProducts();
                       }
                     }),

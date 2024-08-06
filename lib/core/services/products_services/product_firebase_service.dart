@@ -31,13 +31,14 @@ class ProductFirebaseService implements ProductService {
           )
           .snapshots();
     }
-
+    
     return snapshots.map((snapshot) {
       return snapshot.docs.map((doc) {
         return doc.data();
       }).toList();
     });
   }
+
 
   @override
   Future<Product?> save(

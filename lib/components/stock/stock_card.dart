@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_unnecessary_containers
 
 // import 'dart:io';
 
@@ -114,24 +114,11 @@ class StockCard extends StatelessWidget {
               ),
             ],
           ),
-          if (type == 'estoquista') 
+          if (type == 'estoquista') ...[
             SizedBox(height: 12),
             Container(
               child: Row(
                 children: [
-                  // Container(
-                  //   height: 35,
-                  //   child: TextButton(
-                  //     onPressed: () => _openAddStockModal(context, stock),
-                  //     child: Text(
-                  //       'Adicionar quantidade',
-                  //       style: TextStyle(
-                  //         color: Colors.white,
-                  //         fontWeight: FontWeight.normal
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   Container(
                     height: 25,
                     width: 148,
@@ -183,6 +170,7 @@ class StockCard extends StatelessWidget {
                 ],
               ),
             ),
+          ]
         ],
       ),
     );

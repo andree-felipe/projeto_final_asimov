@@ -23,7 +23,7 @@ class _StocklogsPageState extends State<StocklogsPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Estoque',
+          'Registros de baixa',
           style: TextStyle(
             color: Color.fromRGBO(142, 30, 3, 1),
             fontWeight: FontWeight.bold,
