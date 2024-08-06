@@ -56,7 +56,7 @@ class StockCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: type == 'leitor' ? 115 : 155,
+      height: type == 'leitor' ? 115 : 148,
       padding: EdgeInsets.all(8),
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -114,38 +114,68 @@ class StockCard extends StatelessWidget {
               ),
             ],
           ),
-          if (type == 'estoquista')
-          SizedBox(height: 7),
+          if (type == 'estoquista') 
+            SizedBox(height: 12),
             Container(
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(142, 30, 3, 0.3),
-                borderRadius: BorderRadius.circular(12)
-              ),
               child: Row(
                 children: [
+                  // Container(
+                  //   height: 35,
+                  //   child: TextButton(
+                  //     onPressed: () => _openAddStockModal(context, stock),
+                  //     child: Text(
+                  //       'Adicionar quantidade',
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontWeight: FontWeight.normal
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Container(
-                    height: 35,
-                    child: TextButton(
+                    height: 25,
+                    width: 148,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        alignment: Alignment.centerLeft,
+                        elevation: WidgetStatePropertyAll<double>(5),
+                        backgroundColor:
+                            WidgetStatePropertyAll<Color>(Colors.white),
+                        side: WidgetStatePropertyAll<BorderSide>(
+                          BorderSide(
+                            color: const Color.fromRGBO(142, 30, 3, 1),
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
                       onPressed: () => _openAddStockModal(context, stock),
-                      child: Text(
-                        'Adicionar quantidade',
+                      child: const Text(
+                        'Adicionar items',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                          color: Color.fromRGBO(142, 30, 3, 1),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 80),
+                  SizedBox(width: 56),
                   Container(
-                    height: 35,
-                    child: TextButton(
+                    height: 25,
+                    width: 150,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        elevation: WidgetStatePropertyAll<double>(5),
+                        backgroundColor: WidgetStatePropertyAll<Color>(
+                            const Color.fromRGBO(142, 30, 3, 1)),
+                      ),
                       onPressed: () => _openRegisterWriteoffModal(context, stock),
-                      child: Text(
+                      child: const Text(
                         'Realizar baixa',
                         style: TextStyle(
-                          color: Color.fromRGBO(142, 30, 3, 1),
-                          fontWeight: FontWeight.normal
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                          color: Colors.white,
                         ),
                       ),
                     ),

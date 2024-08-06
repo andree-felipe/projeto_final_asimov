@@ -1,16 +1,22 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable
+// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/components/filters/filter_button.dart';
+// import 'package:projeto_final_asimov/core/services/products_services/product_service.dart';
+
+// import '../../core/models/product.dart';
+// import '../products/product_card.dart';
 
 class FiltersMenu extends StatefulWidget {
   // const FiltersMenu({super.key});
 
   String filter;
+  // Stream<List<Product>>? productsStream;
 
   FiltersMenu({
     super.key,
     required this.filter,
+    // required this.productsStream,
   });
 
   @override
@@ -18,7 +24,6 @@ class FiltersMenu extends StatefulWidget {
 }
 
 class _FiltersMenuState extends State<FiltersMenu> {
-
   void _changeFilter(String newFilter) {
     setState(() {
       widget.filter = newFilter;

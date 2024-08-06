@@ -4,7 +4,7 @@ import '../../models/product.dart';
 import 'product_firebase_service.dart';
 
 abstract class ProductService {
-  Stream<List<Product>> productStream();
+  Stream<List<Product>> productStream(String filter);
 
   Future<Product?> save(
     String title,

@@ -10,16 +10,27 @@ import 'product_service.dart';
 
 class ProductFirebaseService implements ProductService {
   @override
-  Stream<List<Product>> productStream() {
+  Stream<List<Product>> productStream(String filter) {
     final store = FirebaseFirestore.instance;
+    Stream<QuerySnapshot<Product>> snapshots;
 
-    final snapshots = store
-        .collection('products')
-        .withConverter(
-          fromFirestore: _fromFirestore,
-          toFirestore: _toFirestore,
-        )
-        .snapshots();
+    if (filter == 'Todos') {
+      snapshots = store
+          .collection('products')
+          .withConverter(
+            fromFirestore: _fromFirestore,
+            toFirestore: _toFirestore,
+          ).snapshots();
+    } else {
+      snapshots = store
+          .collection('products')
+          .where('type', isEqualTo: filter)
+          .withConverter(
+            fromFirestore: _fromFirestore,
+            toFirestore: _toFirestore,
+          )
+          .snapshots();
+    }
 
     return snapshots.map((snapshot) {
       return snapshot.docs.map((doc) {
