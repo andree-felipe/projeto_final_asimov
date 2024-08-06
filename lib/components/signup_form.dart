@@ -75,14 +75,13 @@ class _SignupFormState extends State<SignupForm> {
           key: _formKey,
           child: Column(
             children: [
-              SizedBox(height: 45),
               UserImagePicker(onImagePick: _handleImagePick),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               if (_signupFormData.isSecond)
                 SecondSignup(signupFormData: _signupFormData),
               if (_signupFormData.isFirst)
                 FirstSignup(signupFormData: _signupFormData),
-              SizedBox(height: 40),
+              SizedBox(height: 25),
               Container(
                 width: 300,
                 height: 50,

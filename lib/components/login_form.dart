@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, no_leading_underscores_for_local_identifiers, sized_box_for_whitespace
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,6 +22,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _loginFormData = LoginFormData();
+  bool _returnValue = false;
 
   void _submit() {
     // Verificando se é um formulário válido
@@ -30,12 +32,25 @@ class _LoginFormState extends State<LoginForm> {
     widget.onSubmit(_loginFormData);
   }
 
+  _emailVerification(String emailToVerificate) async {
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    final query = usersCollection.where('email', isEqualTo: emailToVerificate);
+    final queryResult = await query.get();
+
+    if(queryResult.size == 0){
+      _returnValue = true;
+    }
+    else {
+      _returnValue = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 110),
+          margin: EdgeInsets.only(top: 50),
           height: 110,
           width: 110,
           child: SvgPicture.asset(
@@ -63,11 +78,17 @@ class _LoginFormState extends State<LoginForm> {
                   child: TextFormField(
                     key: ValueKey('email'),
                     initialValue: _loginFormData.email,
-                    onChanged: (email) => _loginFormData.email = email,
+                    onChanged: (email) async {
+                      _loginFormData.email = email;
+                      await _emailVerification(email);
+                    }, 
                     validator: (_email) {
                       final email = _email ?? '';
                       if (!email.contains('@')) {
                         return 'O e-mail informado é inválido';
+                      }
+                      if(_returnValue) {
+                        return 'Não há usuário com o email informado';
                       }
                       return null;
                     },

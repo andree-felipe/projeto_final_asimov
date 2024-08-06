@@ -23,7 +23,8 @@ class FirstSignup extends StatefulWidget {
 class _FirstSignupState extends State<FirstSignup> {
   bool _isChecked = false;
   bool _isChecked2 = false;
-  bool _returnValue = false;
+  bool _codeReturnValue = false;
+  bool _emailReturnValue = false;
 
   // Método para verificar se algum usuário criado já usa o código informado no cadastro
   _exclusiveCodeVerification(String codeToVerificate) async {
@@ -32,10 +33,23 @@ class _FirstSignupState extends State<FirstSignup> {
     final queryResult = await query.get();
         
     if(queryResult.size > 0){
-      _returnValue = true;
+      _codeReturnValue = true;
     }
     else {
-      _returnValue = false;
+      _codeReturnValue = false;
+    }
+  }
+
+  _emailAlreadyUsedVerification(String emailToVerificate) async {
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    final query = usersCollection.where('email', isEqualTo: emailToVerificate);
+    final queryResult = await query.get();
+
+    if(queryResult.size > 0){
+      _emailReturnValue = true;
+    }
+    else {
+      _emailReturnValue = false;
     }
   }
 
@@ -111,11 +125,17 @@ class _FirstSignupState extends State<FirstSignup> {
                 child: TextFormField(
                   key: ValueKey('email'),
                   initialValue: widget.signupFormData.email,
-                  onChanged: (email) => widget.signupFormData.email = email,
+                  onChanged: (email) async {
+                    widget.signupFormData.email = email;
+                    await _emailAlreadyUsedVerification(email);
+                  },
                   validator: (_email) {
                     final email = _email ?? '';
                     if (!email.contains('@')) {
                       return 'O e-mail informado é inválido';
+                    }
+                    if(_emailReturnValue) {
+                      return 'O email informado já está em uso';
                     }
                     return null;
                   },
@@ -169,7 +189,7 @@ class _FirstSignupState extends State<FirstSignup> {
                   },
                   validator: (_exclusiveCode) {
                     // Verificar se já existe código cadastrado
-                    if(_returnValue) {
+                    if(_codeReturnValue) {
                       return 'O código inserido já está sendo utilizado';
                     }
                     return null;
