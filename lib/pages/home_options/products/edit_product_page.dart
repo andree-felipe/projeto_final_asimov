@@ -65,7 +65,9 @@ class _EditProductPageState extends State<EditProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         iconTheme: IconThemeData(
           color: Color.fromRGBO(142, 30, 3, 1),
         ),

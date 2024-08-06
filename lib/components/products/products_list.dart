@@ -1,27 +1,38 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/components/products/product_card.dart';
+import 'package:projeto_final_asimov/core/services/products_services/product_service.dart';
+// import 'package:projeto_final_asimov/core/services/products_services/product_service.dart';
 
 import '../../core/models/product.dart';
-import '../../core/services/products_services/product_service.dart';
+// import '../../core/services/products_services/product_service.dart';
 
-class ProductsList extends StatelessWidget {
+class ProductsList extends StatefulWidget {
   final String userType;
+  String selectedFilter;
+  Stream<List<Product>>? productsStream;
 
-  const ProductsList({
+  ProductsList({
     super.key,
     required this.userType,
+    required this.selectedFilter,
+    required this.productsStream,
   });
 
   @override
+  State<ProductsList> createState() => _ProductsListState();
+}
+
+class _ProductsListState extends State<ProductsList> {
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Product>>(
-      stream: ProductService().productStream(),
+      stream: ProductService().productStream(widget.selectedFilter),
       builder: (ctx, snapshot) {
-        if(snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
-        } else if(!snapshot.hasData || snapshot.data!.isEmpty) {
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Center(
             child: Column(
               children: [
@@ -49,7 +60,7 @@ class ProductsList extends StatelessWidget {
             itemBuilder: (ctx, i) => ProductCard(
               key: ValueKey(products[i].id),
               product: products[i],
-              type: userType,
+              type: widget.userType,
             ),
             separatorBuilder: (ctx, i) {
               return SizedBox(height: 0.5);
