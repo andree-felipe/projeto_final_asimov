@@ -29,6 +29,7 @@ class WriteoffFirebaseService implements WriteoffService {
     String productId,
     int quantity,
     String registeredBy,
+    String productName,
   ) async {
     final store = FirebaseFirestore.instance;
 
@@ -39,6 +40,7 @@ class WriteoffFirebaseService implements WriteoffService {
       quantity: quantity,
       registeredBy: registeredBy,
       productId: productId,
+      productName: productName,
     );
 
     final docRef = await store.collection('stockLogs').withConverter(fromFirestore: _fromFirestore, toFirestore: _toFirestore).add(stockLog);
@@ -57,6 +59,7 @@ class WriteoffFirebaseService implements WriteoffService {
       'productId': stockLog.productId,
       'user': stockLog.registeredBy,
       'quantity': stockLog.quantity,
+      'productName': stockLog.productName,
     };
   }
 
@@ -74,6 +77,7 @@ class WriteoffFirebaseService implements WriteoffService {
       quantity: doc['quantity'],
       registeredBy: doc['user'],
       productId: doc['productId'],
+      productName: doc['productName'],
     );
   }
 

@@ -10,6 +10,7 @@ abstract class WriteoffService {
     String productId,
     int quantity,
     String registeredBy,
+    String productName,
   );
   
   factory WriteoffService() {

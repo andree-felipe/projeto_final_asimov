@@ -42,7 +42,7 @@ class _WriteoffFormState extends State<WriteoffForm> {
     final documentSnapshot = querySnapshot.docs.first;
     await documentSnapshot.reference.update({'quantity': newQuantity});
 
-    WriteoffService().save('baixa', _productId, _quantity, _currentUser!.email);
+    WriteoffService().save('Baixa', _productId, _quantity, _currentUser!.email, widget.stock.productName);
 
     Navigator.of(context).pop();
   }
