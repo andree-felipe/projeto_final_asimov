@@ -36,6 +36,7 @@ class AuthFirebaseService implements AuthService {
     String password,
     String exclusiveCode,
     String permissionType,
+    File? image,
   ) async {
     final signup = await Firebase.initializeApp(
       name: 'userSignup',
@@ -50,14 +51,19 @@ class AuthFirebaseService implements AuthService {
     );
 
     if(credential.user != null) {
+      // Upload da foto do usuário
+      final imageName = '${credential.user!.uid}.png';
+      final imageURL = await _uploadUserImage(image, imageName, credential.user!.uid);
+
       // Atualizar atributos do usuário
       await credential.user?.updateDisplayName(name);
+      await credential.user?.updatePhotoURL(imageURL);
 
       // Fazer login do usuário
       await login(email, password);
 
       // Salvar usuário no banco de dados
-      _currentUser = _toAppUser(credential.user!, name, exclusiveCode, permissionType);
+      _currentUser = _toAppUser(credential.user!, name, exclusiveCode, permissionType, imageURL);
       await _saveAppUser(_currentUser!);
     }
 
@@ -88,11 +94,11 @@ class AuthFirebaseService implements AuthService {
     });
   }
 
-  Future<String?> _uploadUserImage(File? image, String imageName) async {
+  Future<String?> _uploadUserImage(File? image, String imageName, String userUID) async {
     if(image == null) return null;
 
     final storage = FirebaseStorage.instance;
-    final imageRef = storage.ref().child('users_images').child(imageName);
+    final imageRef = storage.ref().child('profileImages').child(userUID).child(imageName);
 
     await imageRef.putFile(image).whenComplete(() {});
     return await imageRef.getDownloadURL();

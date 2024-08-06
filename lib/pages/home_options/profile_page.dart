@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
+
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:projeto_final_asimov/pages/app_or_auth_page.dart';
@@ -10,12 +12,14 @@ class ProfilePage extends StatefulWidget {
   final AppUser currentUser;
   final String permissionType;
   final String identificationCode;
+  final String userImageURL;
 
   const ProfilePage({
     super.key,
     required this.currentUser,
     required this.permissionType,
     required this.identificationCode,
+    required this.userImageURL,
   });
 
   @override
@@ -23,6 +27,29 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  static const _defaultImage = 'assets/images/avatar.png';
+
+  Widget _showUserImage(String imageURL) {
+    ImageProvider? provider;
+    final uri = Uri.parse(imageURL);
+
+    if (uri.path.contains(_defaultImage)) {
+      provider = const AssetImage(_defaultImage);
+    } else if (uri.scheme.contains('http')) {
+      provider = NetworkImage(uri.toString());
+    } else {
+      provider = FileImage(File(uri.toString()));
+    }
+
+    return Container(
+      width: 130,
+      height: 130,
+      child: CircleAvatar(
+        backgroundImage: provider,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -39,6 +66,8 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          _showUserImage(widget.userImageURL),
+          SizedBox(height: 15),
           Container(
             color: Colors.white,
             width: screenWidth,
@@ -48,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 100),
+                  SizedBox(height: 50),
                   ListTile(
                     title: Text(
                       'Nome',

@@ -41,7 +41,7 @@ class _LoginOrSignupPageState extends State<LoginOrSignupPage> {
       if(!mounted) return;
       setState(() => _isLoading = true);
 
-      await AuthService().signup(signupFormData.name, signupFormData.email, signupFormData.password, signupFormData.exclusiveCode, signupFormData.permissionType);
+      await AuthService().signup(signupFormData.name, signupFormData.email, signupFormData.password, signupFormData.exclusiveCode, signupFormData.permissionType, signupFormData.image);
 
     } catch(error) {
       // tratar erro
