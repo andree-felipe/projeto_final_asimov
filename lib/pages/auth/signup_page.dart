@@ -20,7 +20,7 @@ class _SignupPageState extends State<SignupPage> {
       if(!mounted) return;
       setState(() => _isLoading = true);
 
-      await AuthService().signup(signupFormData.name, signupFormData.email, signupFormData.password, signupFormData.exclusiveCode, signupFormData.permissionType);
+      await AuthService().signup(signupFormData.name, signupFormData.email, signupFormData.password, signupFormData.exclusiveCode, signupFormData.permissionType, signupFormData.image);
 
     } catch (error) {
       // Tratar erro
@@ -33,12 +33,14 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
             Center(
               child: Column(
                 children: [
+                  SizedBox(height: 70),
                   Center(
                     child: SignupForm(onSubmit: _handleSubmit, fromLoginForm: true),
                   ),

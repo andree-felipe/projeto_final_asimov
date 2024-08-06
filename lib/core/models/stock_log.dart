@@ -5,6 +5,7 @@ class StockLog {
   final int quantity;
   final String registeredBy;
   final String productId;
+  final String productName;
 
   StockLog({
     required this.id,
@@ -13,5 +14,6 @@ class StockLog {
     required this.quantity,
     required this.registeredBy,
     required this.productId,
+    required this.productName,
   });
 }
